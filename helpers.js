@@ -246,6 +246,45 @@ export const parseToMenu = (menus, roleId) => {
   return newMenus;
 };
 
+export const convertArrayToObject = (array = [], key) => {
+  const initialValue = {};
+  return array.reduce((obj, item) => {
+    return {
+      ...obj,
+      [item[key]]: item,
+    };
+  }, initialValue);
+};
+
+export const convertArrayToObject = (array = [], key) => {
+  const initialValue = {};
+  return array.reduce((obj, item) => {
+    return {
+      ...obj,
+      [item[key]]: item,
+    };
+  }, initialValue);
+};
+
+export const removeUnicode = str => {
+  return str.normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/đ/g, 'd')
+            .replace(/Đ/g, 'D')
+            .replace(/[^a-zA-Z0-9 ]/g, '');
+};
+export const formatVND = str => {
+  return (str + '').replace(/\B(?=(\d{3})+(?!\d))/g, ',').replace(/[a-zA-Z]/, '') + 'đ';
+};
+export const getAddressString = (a, w, d, p) => {
+  let ret = '';
+  ret += `${a ? a + ', ' : ''}`;
+  ret += `${w ? w + ', ' : ''}`;
+  ret += `${d ? d + ', ' : ''}`;
+  ret += `${p ? p + ', ' : ''}`;
+  return ret.replace(/,$/, '').replace(/, $/, '');
+}
+
 export default {
   FormatNumber,
   validateEmail,
@@ -258,10 +297,4 @@ export default {
   removeUnicode,
   exportExcel,
   exportPdf,
-  clearArray,
-  isValidURL,
-  generatePathQuery,
-  getQueryParams,
-  getMenuFromLocalStorage,
-  parseToMenu
 };
